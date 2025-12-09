@@ -1,29 +1,24 @@
-version: "3.8"
-
 services:
-  api:
-    build: .
-    env_file: .env
-    ports:
-      - "8000:8000"
-    depends_on:
-      - db
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
   db:
     image: postgres:15
     environment:
-      POSTGRES_USER: signals
-      POSTGRES_PASSWORD: signals
-      POSTGRES_DB: signals
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+      POSTGRES_DB: app
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  api:
+    build:
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_URL: postgresql+asyncpg://app:app@db:5432/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
 
 volumes:
   postgres_data:
