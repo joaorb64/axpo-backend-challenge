@@ -1,4 +1,3 @@
-# ...existing code...
 from datetime import datetime
 from typing import List, Optional
 from pydantic import BaseModel, model_validator, Field, ConfigDict
@@ -6,9 +5,9 @@ from pydantic import BaseModel, model_validator, Field, ConfigDict
 
 class MeasurementFilter(BaseModel):
     """Query/filter schema for measurements endpoint."""
-    signal_ids: List[str] = Field(..., description="IDs dos sinais")
-    start: datetime = Field(..., description="Data/hora inicial (ISO-8601)")
-    end: datetime = Field(..., description="Data/hora final (ISO-8601)")
+    signal_ids: List[str] = Field(..., description="Signal IDs")
+    start: datetime = Field(..., description="Time from (ISO-8601)")
+    end: datetime = Field(..., description="Time to (ISO-8601)")
 
     @model_validator(mode="after")
     def check_date_range(self, values):

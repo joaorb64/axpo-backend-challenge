@@ -1,4 +1,3 @@
-"""Assets endpoint (v1)."""
 from fastapi import APIRouter, HTTPException
 from typing import List
 from app.assets import service

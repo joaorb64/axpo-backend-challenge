@@ -22,7 +22,6 @@ async def get_measurements(signal_ids: List[int], from_dt: datetime, to_dt: date
 
 
 async def calculate_signal_stats(signal_id: int, from_dt: datetime, to_dt: datetime) -> MeasurementStats:
-    """Calcula estatísticas para um sinal em um intervalo de datas."""
     measurements = await get_measurements([signal_id], from_dt, to_dt)
     values = [m.value for m in measurements]
 

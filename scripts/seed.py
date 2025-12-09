@@ -48,7 +48,7 @@ async def seed():
         except Exception as e:
             print(e)
 
-        # ---------------- SIGNALS ----------------
+        # Signals
         try:
             with open(SIGNALS_JSON, "r") as f:
                 signals_data = json.load(f)
@@ -70,9 +70,9 @@ async def seed():
         except Exception as e:
             print(e)
 
+        # Measurements
         try:
             with open(MEASUREMENTS_CSV, newline="", encoding="utf-8-sig") as f:
-                # pipe como separador
                 reader = csv.DictReader(f, delimiter='|')
                 for m in reader:
                     session.add(Measurement(

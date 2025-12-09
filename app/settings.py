@@ -14,7 +14,6 @@ class Settings(BaseSettings):
         if self.app_env == "production":
             self.debug_mode = False
             self.log_level = "INFO"
-            self.database_url = "postgresql+asyncpg://app:app@db:5432/app"
 
 
 settings = Settings()
