@@ -2,7 +2,7 @@
 
 ## Strategy
 
-### Initial steps (2h)
+### Initial steps (1h30min)
 
 - Forked, removed other challenge types from the repository
 - Started by taking an overall look and removing all unused functions
@@ -15,6 +15,7 @@
 
 ### Refactoring (4h)
 
+- Added a file to handle logging
 - Made the concept of schemas and models clearly separated
   - Made all using pydantic models and classes based on SQLAlchemy
   - Most files became really small or were completely removed
@@ -23,6 +24,7 @@
 - Added a database (PostreSQL)
   - Created a script to populate the databases with all data from the json/csv files
 - Reworked settings to be more straightforward
+- Laid groundwork for tests, added some initial endpoint tests
 
 ### Final touches (30min)
 
@@ -30,19 +32,27 @@
 
 ### Beyond what was done
 
-My feeling is that I only touched the surface if we're thinking of a big project. But of course, would take more time.
+My feeling is that I only scratched the surface if we're thinking of a big project. But of course, would take more time.
 
 These are things I'd do next to make this project more productionalized:
 
 - Better organize dev/prod environments with their own separated DBs
-- Better organize logging: add files to initialize and handle logging in a unified way (using default python logging)
 - Add database migration handling (Alembic)
-- Add observability:
+- More on observability:
   - Services to track stats and post them to the DB
   - Grafana for data visualization
-- Add tests
+- Implement more tests
 - Add CI/CD using Github Actions
   - Would make more sense after having deployment and test flows
+
+### Final result
+
+The proposal was to have a **"realistically runnable in production (structure, config, reliability, tests, observability)"** version of the initial repository. Here's how I see each point was accomplished:
+
+- Structure: Reorganized the whole repo's structure, classes; removed old, duplicated, unused code
+- Config: Reorganized how configs are loaded, added Docker for easier setup
+- Reliability: Everything now uses features like pydantic which help with avoiding bugs when writing code
+- Tests: added an initial test structure
 
 ## Running
 
@@ -54,4 +64,8 @@ These are things I'd do next to make this project more productionalized:
 
 This script inserts data from the json/csv files into the database
 
-`docker compose run --rm api python app/seed.py`
+`docker compose run --build api python -m scripts.seed`
+
+### Testing
+
+`docker compose run --build api pytest tests`

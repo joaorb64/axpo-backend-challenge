@@ -3,6 +3,7 @@ from fastapi import APIRouter, HTTPException
 from typing import List
 from app.assets import service
 from .schemas import Asset
+from app.logging.logging_config import logger
 
 router = APIRouter(tags=["assets"])
 
@@ -18,4 +19,5 @@ async def get_assets() -> List[Asset]:
 
         return assets
     except Exception as e:
+        logger.error(f"Error fetching assets: {e}")
         raise HTTPException(status_code=500, detail=str(e))

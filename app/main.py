@@ -5,7 +5,6 @@ from app.health import router as health_router
 from app.assets import router as asset_router
 from app.measurements import router as measurement_router
 from app.db.database import init_db
-# from app.signals import router as signal_router
 import uvicorn
 
 
